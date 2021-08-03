@@ -10,4 +10,7 @@ router.get('/', PizzasController.index);
 
 router.get('/pizzas/:id', PizzasController.show)
 
+// rota para /busca
+router.get('/busca', PizzasController.busca )
+
 module.exports = router;
