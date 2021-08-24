@@ -17,18 +17,26 @@ module.exports = {
         //com desconstrução
         // const {email, senha} = req.body
 
-        //Buscar no array de usuários um usuário que tenha email igual ao
-        const usuarioESenhaExiste = usuarios.find(e => e.email == campoEmail && e.senha == campoSenha)
+        //Buscar no array de usuários um usuário que tenha email igual ao fornecido
+        const usuario = usuarios.find(e => e.email == campoEmail && e.senha == campoSenha)
         
         // const emailExiste = usuarios.find(s => s.email == campoEmail)
         // const senhaExiste = usuarios.find(s => s.senha == campoSenha)
 
-
-        if(!usuarioESenhaExiste){
+        if(!usuario){
             return res.redirect('/admin/login?err=1')
-        } else {
-            return res.send("Logado!")
+        } else { 
+
+            //configurando a session do usuario
+            req.session.usuario = {nome: usuario.nome, email: usuario.email}
+
+    
+            return res.redirect("/admin/home");
         }
         
+    },
+
+    showHome: (req, res) =>{
+        res.render("admin/home")
     }
 }
